@@ -1,128 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>CattyMod Desktop</title>
 
 <link rel="icon" href="https://cattymod.app/images/apple-touch-icon.png">
 
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #0f172a;
-        color: white;
-        text-align: center;
-    }
+:root{
+    --bg:#0b0f1a;
+    --panel:#121a2a;
+    --text:#e8eefc;
+    --muted:#a9b4c7;
+    --accent:#38bdf8;
+    --border:rgba(255,255,255,0.06);
 
-    header {
-        padding: 60px 20px;
-    }
+    /* UPDATED */
+    --green:#ff8c1a;
+}
 
-    .logo {
-        width: 100px;
-        border-radius: 20px;
-    }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+}
 
-    h1 {
-        font-size: 3em;
-        margin: 20px 0 10px;
-    }
+body{
+    background:var(--bg);
+    color:var(--text);
+    display:flex;
+    justify-content:center;
+}
 
-    p {
-        color: #cbd5f5;
-        max-width: 600px;
-        margin: 0 auto 20px;
-        font-size: 1.2em;
-    }
+.container{
+    width:100%;
+    max-width:920px;
+    padding:60px 24px;
+    text-align:center;
+}
 
-    .btn {
-        display: inline-block;
-        padding: 15px 30px;
-        background: #38bdf8;
-        color: black;
-        text-decoration: none;
-        border-radius: 10px;
-        font-weight: bold;
-        transition: 0.2s;
-    }
+.header{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    margin-bottom:28px;
+}
 
-    .btn:hover {
-        background: #0ea5e9;
-    }
+.logo{
+    width:64px;
+    height:64px;
+    border-radius:14px;
+}
 
-    .section {
-        padding: 60px 20px;
-    }
+.title{
+    font-size:26px;
+    font-weight:700;
+}
 
-    .features {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
-        max-width: 900px;
-        margin: auto;
-    }
+.hero h1{
+    font-size:40px;
+    margin-top:10px;
+}
 
-    .card {
-        background: #1e293b;
-        padding: 20px;
-        border-radius: 15px;
-    }
+.hero p{
+    color:var(--muted);
+    font-size:16px;
+    margin-top:12px;
+    line-height:1.5;
+}
 
-    footer {
-        padding: 40px 20px;
-        font-size: 0.9em;
-        color: #94a3b8;
-    }
+.buttons{
+    margin-top:22px;
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:10px 14px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:600;
+    font-size:14px;
+    position:relative;
+}
+
+.btn.primary{
+    background:var(--accent);
+    color:#001018;
+}
+
+.btn.primary:hover{
+    filter:brightness(1.1);
+}
+
+.recommended{
+    position:absolute;
+    top:-10px;
+    right:-10px;
+    background:var(--green);
+    color:#ffffff;
+    font-size:10px;
+    font-weight:800;
+    padding:4px 6px;
+    border-radius:6px;
+}
+
+.btn.secondary{
+    background:transparent;
+    color:var(--text);
+    border:1px solid var(--border);
+}
+
+.version{
+    margin-top:10px;
+    font-size:12px;
+    color:#7f8aa3;
+}
+
+.screenshot img{
+    width:100%;
+    max-width:680px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    margin-top:35px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.45);
+}
+
+.features{
+    margin-top:40px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:14px;
+    border-radius:10px;
+}
+
+.card h3{
+    font-size:14px;
+    margin-bottom:6px;
+}
+
+.card p{
+    font-size:13px;
+    color:var(--muted);
+}
+
+.footer{
+    margin-top:50px;
+    font-size:12px;
+    color:#7f8aa3;
+}
 </style>
 </head>
 
 <body>
 
-<header>
-    <img src="https://cattymod.app/images/apple-touch-icon.png" class="logo">
-    <h1>CattyMod Desktop</h1>
-    <p>The best Scratch mod can now be used offline. Fast, powerful, and built for creators.</p>
+<div class="container">
 
-    <a class="btn" href="https://www.dropbox.com/scl/fi/n71t22md3m9933s9wz9mg/CattyMod-Desktop.zip?rlkey=25mz43sv5md5i8y2r34rr6w98&st=9crqp86f&dl=1">
-        Download Now
-    </a>
+    <div class="header">
+        <img class="logo" src="https://cattymod.app/images/apple-touch-icon.png">
+        <div class="title">CattyMod Desktop</div>
+    </div>
 
-    <p style="margin-top: 15px; font-size: 0.9em;">
-        Version based on April 9, 2026
-    </p>
-</header>
+    <div class="hero">
+        <h1>Scratch, but faster — offline.</h1>
 
-<section class="section">
-    <h2>Why CattyMod Desktop?</h2>
+        <p>
+            Official CattyMod Desktop release (April 9th, 2026).<br>
+            Windows 10 & 11 • 32-bit & 64-bit supported
+        </p>
 
-    <div class="features">
-        <div class="card">
-            <h3>Offline Support</h3>
-            <p>Use CattyMod anywhere without internet.</p>
+        <div class="buttons">
+
+            <a class="btn primary"
+               href="https://www.dropbox.com/scl/fi/1y6i6g7ceoqvu4ov6prgo/cattymod.exe?rlkey=27wtjxyt49mf7dsxuvi1j725x&st=opz3tvzk&dl=1">
+                Download EXE
+                <span class="recommended">Recommended</span>
+            </a>
+
+            <a class="btn secondary"
+               href="https://www.dropbox.com/scl/fi/n71t22md3m9933s9wz9mg/CattyMod-Desktop.zip?rlkey=25mz43sv5md5i8y2r34rr6w98&st=9crqp86f&dl=1">
+                Download ZIP
+            </a>
+
         </div>
 
-        <div class="card">
-            <h3>All Features</h3>
-            <p>Everything you love from CattyMod, included.</p>
-        </div>
-
-        <div class="card">
-            <h3>Easy to Use</h3>
-            <p>Download, open, and start creating instantly.</p>
+        <div class="version">
+            Official build • CattyMod April 9th, 2026
         </div>
     </div>
-</section>
 
-<section class="section">
-    <h2>Official Release</h2>
-    <p>This is the official CattyMod Desktop release. Built to bring the full CattyMod experience to your computer.</p>
-</section>
+    <div class="screenshot">
+        <img src="https://raw.githubusercontent.com/cattymod/desktop/refs/heads/main/Screenshot%202026-04-10%20095307.png">
+    </div>
 
-<footer>
-    <p>Made with 💖 by CattyMod!</p>
-</footer>
+    <div class="features">
+
+        <div class="card">
+            <h3>Official Release</h3>
+            <p>Direct CattyMod team build.</p>
+        </div>
+
+        <div class="card">
+            <h3>Offline Support</h3>
+            <p>Works without internet after install.</p>
+        </div>
+
+        <div class="card">
+            <h3>Windows Optimized</h3>
+            <p>Built for Windows 10 & 11 systems.</p>
+        </div>
+
+        <div class="card">
+            <h3>Scratch Enhanced</h3>
+            <p>Extended features for creators.</p>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        © 2026 CattyMod. All rights reserved.
+    </div>
+
+</div>
 
 </body>
 </html>
