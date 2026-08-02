@@ -1,229 +1,354 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CattyMod Desktop</title>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CattyMod Desktop - Better offline editor for Scratch 3</title>
+    <link rel="canonical" href="https://cattymod.app/desktop/" />
+    <meta name="description" content="CattyMod Desktop is a better version of Scratch 3 with a compiler, dark mode, addons, packager, Linux support, and more.">
+    <meta name="theme-color" content="#4c97ff">
 
-<link rel="icon" href="https://cattymod.app/images/apple-touch-icon.png">
+    <style>
+      :root {
+        --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+        
+        --bg-main: #0B0F19;
+        --bg-card: rgba(22, 30, 46, 0.7);
+        --bg-card-hover: rgba(30, 41, 64, 0.8);
+        --border-color: rgba(255, 255, 255, 0.08);
+        --border-glow: rgba(76, 151, 255, 0.4);
 
-<style>
-:root{
-    --bg:#0b0f1a;
-    --panel:#121a2a;
-    --text:#e8eefc;
-    --muted:#a9b4c7;
-    --accent:#38bdf8;
-    --border:rgba(255,255,255,0.06);
+        --primary: #4c97ff;
+        --primary-glow: rgba(76, 151, 255, 0.35);
+        --primary-gradient: linear-gradient(135deg, #4c97ff 0%, #2563eb 100%);        
+        --text-main: #f3f4f6;
+        --text-muted: #9ca3af;
+      }
 
-    /* UPDATED */
-    --green:#ff8c1a;
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: var(--font-sans);
+        background-color: var(--bg-main);
+        color: var(--text-main);
+        line-height: 1.6;
+        overflow-x: hidden;
+        background-image: 
+          radial-gradient(circle at 15% 15%, rgba(255, 76, 76, 0.12) 0%, transparent 40%),
+          radial-gradient(circle at 85% 65%, rgba(177, 23, 248, 0.08) 0%, transparent 40%);
+        background-attachment: fixed;
+      }
+
+      a {
+        color: #60a5fa;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      a:hover {
+        color: #93c5fd;
+        text-decoration: underline;
+      }
+
+      /* Hero / Header Section */
+      .hero {
+        text-align: center;
+        padding: 80px 20px 40px;
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .header-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        letter-spacing: -0.025em;
+        margin: 20px 0 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        background: linear-gradient(180deg, #FFFFFF 0%, #A5A5A5 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .header-title svg,
+.header-title img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px var(--primary-glow));
 }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-}
+      .subheader {
+        font-size: 1.25rem;
+        color: var(--text-muted);
+        max-width: 600px;
+        margin: 0 auto 32px;
+      }
 
-body{
-    background:var(--bg);
-    color:var(--text);
-    display:flex;
-    justify-content:center;
-}
+      /* Buttons & Badges */
+      .above-fold-download {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        margin: 32px 0;
+      }
 
-.container{
-    width:100%;
-    max-width:920px;
-    padding:60px 24px;
-    text-align:center;
-}
+      .download-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        background: var(--primary-gradient);
+        color: #ffffff !important;
+        font-weight: 700;
+        font-size: 1.1rem;
+        padding: 16px 32px;
+        border-radius: 12px;
+        box-shadow: 0 0 30px var(--primary-glow);
+        transition: transform 0.2s, box-shadow 0.2s;
+        text-decoration: none !important;
+      }
+      .download-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 40px rgba(76, 151, 255, 0.6);
+        text-decoration: none !important;
+      }
+      .download-button::before {
+        content: '';
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="white" d="M216 0h80c13.3 0 24 10.7 24 24v168h87.7c17.8 0 26.7 21.5 14.1 34.1L269.7 378.3c-7.5 7.5-19.8 7.5-27.3 0L90.1 226.1c-12.6-12.6-3.7-34.1 14.1-34.1H192V24c0-13.3 10.7-24 24-24zm296 376v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h146.7l49 49c20.1 20.1 52.5 20.1 72.6 0l49-49H488c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"></path></svg>') no-repeat center;
+        width: 1.2em;
+        height: 1.2em;
+      }
 
-.header{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:14px;
-    margin-bottom:28px;
-}
+      /* Image Showcase Card */
+      .picture {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 10px;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      }
+      .picture img {
+        width: 100%;
+        border-radius: 10px;
+        display: block;
+      }
+      .picture-caption {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        margin-top: 12px;
+        text-align: center;
+      }
 
-.logo{
-    width:64px;
-    height:64px;
-}
+      /* Layout Sections */
+      .section {
+        max-width: 900px;
+        margin: 60px auto;
+        padding: 0 20px;
+      }
 
-.title{
-    font-size:26px;
-    font-weight:700;
-}
+      h2 {
+        font-size: 2rem;
+        letter-spacing: -0.02em;
+        margin-bottom: 24px;
+        text-align: center;
+      }
 
-.hero h1{
-    font-size:40px;
-    margin-top:10px;
-}
+      /* Cool Grid Layout for Features & Links */
+      .feature-list, .links {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+      }
 
-.hero p{
-    color:var(--muted);
-    font-size:16px;
-    margin-top:12px;
-    line-height:1.5;
-}
+      .feature-card, .link {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        padding: 20px;
+        border-radius: 12px;
+        backdrop-filter: blur(8px);
+        transition: all 0.25s ease;
+      }
+      .feature-card:hover, .link:hover {
+        background: var(--bg-card-hover);
+        border-color: var(--border-glow);
+        transform: translateY(-3px);
+      }
 
-.buttons{
-    margin-top:22px;
-    display:flex;
-    justify-content:center;
-    gap:12px;
-    flex-wrap:wrap;
-}
+      .feature-card h3 {
+        margin: 0 0 8px;
+        font-size: 1.1rem;
+        color: var(--primary);
+      }
+      .feature-card p {
+        margin: 0;
+        font-size: 0.95rem;
+        color: var(--text-muted);
+      }
 
-.btn{
-    padding:10px 14px;
-    border-radius:8px;
-    text-decoration:none;
-    font-weight:600;
-    font-size:14px;
-    position:relative;
-}
+      /* Modernized Links & SVGs */
+      .link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--text-main);
+        text-decoration: none !important;
+      }
+      .link svg {
+        background: rgba(76, 151, 255, 0.15);
+        color: var(--primary);
+        width: 36px;
+        height: 36px;
+        padding: 6px;
+        border-radius: 8px;
+        flex-shrink: 0;
+      }
 
-.btn.primary{
-    background:var(--accent);
-    color:#001018;
-}
+      /* Code / Terminal Formatting */
+      code {
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid var(--border-color);
+        color: #38bdf8;
+        padding: 3px 8px;
+        border-radius: 6px;
+        font-family: var(--font-mono);
+        font-size: 0.875em;
+      }
+      .terminal {
+        background: #06080d;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 16px;
+        margin: 12px 0;
+      }
+      .command::before {
+        content: '$ ';
+        color: var(--primary);
+      }
 
-.btn.primary:hover{
-    filter:brightness(1.1);
-}
+      /* Badges & Warning Cards */
+      .warning {
+        background: rgba(255, 170, 0, 0.08);
+        border: 1px solid rgba(255, 170, 0, 0.3);
+        border-radius: 12px;
+        padding: 16px;
+        color: #ffca28;
+      }
 
-.recommended{
-    position:absolute;
-    top:-10px;
-    right:-10px;
-    background:var(--green);
-    color:#ffffff;
-    font-size:10px;
-    font-weight:800;
-    padding:4px 6px;
-    border-radius:6px;
-}
+      .beta-badge {
+        background: #9333ea;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
 
-.btn.secondary{
-    background:transparent;
-    color:var(--text);
-    border:1px solid var(--border);
-}
+      /* Language Selector Widget */
+      .language-selector {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        padding: 6px 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        backdrop-filter: blur(8px);
+      }
+      .language-icon { width: 18px; height: 18px; }
+      .language-caret { width: 8px; height: 5px; }
+      .language-selector-input {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        cursor: pointer;
+      }
 
-.installnote{
-    margin-top:10px;
-    font-size:12px;
-    color:#7f8aa3;
-}
+      @media (max-width: 600px) {
+        .header-title { font-size: 2.2rem; flex-direction: column; }
+        .hero { padding-top: 60px; }
+      }
+    </style>
+  </head>
 
-.screenshot img{
-    width:100%;
-    max-width:680px;
-    border-radius:12px;
-    border:1px solid var(--border);
-    margin-top:35px;
-    box-shadow:0 20px 50px rgba(0,0,0,0.45);
-}
+  <body>
+    <script>
+      document.body.setAttribute('has-js', 'true');
+      document.body.setAttribute('data-os', 'unsupported');
+    </script>
 
-.features{
-    margin-top:40px;
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-}
-
-.card{
-    background:var(--panel);
-    border:1px solid var(--border);
-    padding:14px;
-    border-radius:10px;
-}
-
-.card h3{
-    font-size:14px;
-    margin-bottom:6px;
-}
-
-.card p{
-    font-size:13px;
-    color:var(--muted);
-}
-
-.footer{
-    margin-top:50px;
-    font-size:12px;
-    color:#7f8aa3;
-}
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-    <div class="header">
-        <img class="logo" src="https://cattymod.app/images/apple-touch-icon.png">
-        <div class="title">CattyMod Desktop</div>
-    </div>
-
+    <!-- Main Hero Banner -->
     <div class="hero">
-        <h1>Scratch, but faster — offline.</h1>
+      <h1 class="header-title">
+  <img src="https://cattymod.app/assets/cattymod-icon-DpwK82Wr.png" width="64" height="64" alt="CattyMod Logo" />
+  <span>CattyMod Desktop</span>
+</h1>
+      <p class="subheader">A faster, modernized, and powerful offline editor for Scratch 3 with dark mode, addons, custom framerates, and a JavaScript compiler.</p>
 
-        <p>
-            Official CattyMod Desktop release (Latest).<br>
-
-        <div class="buttons">
-
-            <a class="btn primary"
-               href="https://github.com/cattymod/scratch-gui/archive/refs/heads/build.zip">
-                Download Editor
-                <span class="recommended">Recommended</span>
-            </a>
-
-        </div>
-
-        <div class="installnote">
-            After Installing, extract the zip and open index.html
-        </div>
+      <div class="above-fold-download">
+        <a href="https://github.com/cattymod/scratch-gui/archive/refs/heads/build.zip" class="download-button">Download Editor</a>
+        <span style="font-size: 0.85rem; color: var(--text-muted)">Supports Windows, macOS & Linux</span>
+      </div>
     </div>
 
-    <div class="screenshot">
-        <img src="https://cattymod.app/desktop/screenshot.png">
+    <!-- App Preview Section -->
+    <div class="picture">
+      <img src="https://cattymod.app/desktop/screenshot.png" alt="CattyMod Desktop Screenshot" />
     </div>
 
-    <div class="features">
-
-        <div class="card">
-            <h3>Official Release</h3>
-            <p>Direct CattyMod team build.</p>
+    <!-- Features Section -->
+    <div class="section features">
+      <h2>Engineered for Power</h2>
+      <div class="feature-list">
+        <div class="feature-card">
+          <h3>⚡ Unmatched Speed</h3>
+          <p>Compiles Scratch projects into native JavaScript, executing blocks 10x to 100x faster than standard Scratch.</p>
         </div>
-
-        <div class="card">
-            <h3>Offline Support</h3>
-            <p>Works without internet after download.</p>
+        <div class="feature-card">
+          <h3>🌙 Built-in Dark Mode</h3>
+          <p>Sleek, customizable UI themes to make creation comfortable during late-night coding sessions.</p>
         </div>
-
-        <div class="card">
-            <h3>Fast and filled with features</h3>
-            <p>Use addons and more!</p>
+        <div class="feature-card">
+          <h3>🛠️ Developer Suite</h3>
+          <p>Includes searchable drop-downs, global search bar, folder organization, jump to block definitions, and custom extensions.</p>
         </div>
-
-        <div class="card">
-            <h3>Scratch Enhanced</h3>
-            <p>Extended features for creators.</p>
+        <div class="feature-card">
+          <h3>🎨 Advanced Artist Tools</h3>
+          <p>Full transparency support, triangles, shapes, onion skinning capabilities, and HD stage resizing.</p>
         </div>
-
+        <div class="feature-card">
+          <h3>🐈 Cat Blocks & Addons</h3>
+          <p>Customize your experience with full access to tons of community-loved CattyMod addons and block themes.</p>
+        </div>
+      </div>
     </div>
 
-    <div class="footer">
-Made with 💖 by The CattyMod Team  </div>
-
-</div>
-
-</body>
+    <!-- Resources & Quick Links -->
+    <div class="section">
+      <h2>Project Resources</h2>
+      <div class="links">
+        <a class="link" href="https://github.com/cattymod">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          <span>Open Source Code</span>
+        </a>
+        <a class="link" href="https://scratch.mit.edu/projects/1335032585/">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bug-icon lucide-bug"><path d="M12 20v-9"/><path d="M14 7a4 4 0 0 1 4 4v3a6 6 0 0 1-12 0v-3a4 4 0 0 1 4-4z"/><path d="M14.12 3.88 16 2"/><path d="M21 21a4 4 0 0 0-3.81-4"/><path d="M21 5a4 4 0 0 1-3.55 3.97"/><path d="M22 13h-4"/><path d="M3 21a4 4 0 0 1 3.81-4"/><path d="M3 5a4 4 0 0 0 3.55 3.97"/><path d="M6 13H2"/><path d="m8 2 1.88 1.88"/><path d="M9 7.13V6a3 3 0 1 1 6 0v1.13"/></svg>
+          <span>Report a Bug</span>
+        </a>
+      </div>
+    </div>
+  </body>
 </html>
